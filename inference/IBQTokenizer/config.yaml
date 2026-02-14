@@ -1,0 +1,71 @@
+seed_everything: true
+trainer:
+  accelerator: gpu
+  strategy: ddp_find_unused_parameters_true
+  devices: 8
+  num_nodes: 4
+  precision: 16-mixed
+  max_epochs: 1
+  max_steps: 9999999
+  val_check_interval: 10000
+  check_val_every_n_epoch: 1
+  num_sanity_val_steps: 16
+  log_every_n_steps: 1
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        dirpath: ""
+        save_top_k: -1
+        every_n_train_steps: 10000
+        monitor: "train/perceptual_loss"
+    - class_path: lightning.pytorch.callbacks.LearningRateMonitor
+      init_args:
+        logging_interval: step
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      save_dir: ""
+      project: "LatentVQ"
+      entity: "baai-agi"
+      name: "IBQ-FusionImage256-XL-f16c131k-siglip"
+
+model:
+  class_path: src.IBQ.models.ibqgan_w_semantic.IBQ
+  init_args:
+    ddconfig:
+      double_z: False
+      z_channels: 256
+      resolution: 256
+      in_channels: 3
+      out_ch: 3
+      ch: 256
+      ch_mult: [ 1,1,2,2,4]  # num_down = len(ch_mult)-1
+      num_res_blocks: 4 #not adopt from showo
+      attn_resolutions: [16] #not adopt from showo
+      dropout: 0.0
+
+    n_embed: 131072
+    embed_dim: 256
+
+
+data:
+  class_path: main.DataModuleFromConfig
+  init_args:
+    batch_size: 8
+    num_workers: 8
+    train:
+      params:
+        config:
+          data_path: null
+          semantic_aux: null
+          size: 256
+    validation:
+      target: src.IBQ.data.dataset.ImageDataset
+      params:
+        config:
+          data_path: null
+          semantic_aux: null
+          size: 256
+          is_train: False
+
+ckpt_path: null # to resume
