@@ -19,7 +19,7 @@ Scaling World Model for Hierarchical Manipulation Policies
 
 ## 🧠 Overview
 <p align="center">
-  <img src=".assets/teaser.jpg" width="95%">
+  <img src="assets/teaser.jpg" width="95%">
 </p>
 
 This repository provides the **official inference code for the embodied world model in VISTA**, introduced in the paper:
