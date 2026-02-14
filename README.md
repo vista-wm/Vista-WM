@@ -18,14 +18,11 @@ Scaling World Model for Hierarchical Manipulation Policies
 ---
 
 ## 🧠 Overview
+
+This repository provides the **official inference code for the embodied world model in VISTA**
 <p align="center">
   <img src="assets/teaser.jpg" width="95%">
 </p>
-
-This repository provides the **official inference code for the embodied world model in VISTA**, introduced in the paper:
-
-> **Scaling World Model for Hierarchical Manipulation Policies**
-
 
 ---
 
@@ -34,8 +31,8 @@ This repository provides the **official inference code for the embodied world mo
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/vista-wm/Vista-WM
+cd Vista-WM
 ```
 
 ### 2. Create a Virtual Environment
@@ -65,8 +62,9 @@ Download the model checkpoint from Hugging Face and place it in `inference/ckpt`
 # Install huggingface-hub if not installed
 pip install huggingface-hub
 
+cd inference
 # Download model weights
-huggingface-cli download vista-wm/vista-wm-ckpt --repo-type model --local-dir inference/ckpt
+huggingface-cli download vista-wm/vista-wm-ckpt --repo-type model --local-dir ./ckpt
 ```
 
 ### Step 2: Download IBQTokenizer Weights
@@ -74,7 +72,7 @@ huggingface-cli download vista-wm/vista-wm-ckpt --repo-type model --local-dir in
 Download the IBQTokenizer weights and place them in `inference/IBQTokenizer`:
 
 ```bash
-huggingface-cli download vista-wm/IBQTokenizer --repo-type model --local-dir inference/IBQTokenizer
+huggingface-cli download vista-wm/IBQTokenizer --repo-type model --local-dir ./IBQTokenizer
 ```
 
 ## 🚀 Launch Gradio Demo
