@@ -163,7 +163,7 @@ def run_single_sample(
         "text": []
     }
     time_tag = datetime.now().strftime("%Y%m%d%H%M%S")
-    save_sample_path = os.path.join(cfg.save_path, time_tag)
+    save_sample_path = os.path.join(cfg.save_root, time_tag)
     os.makedirs(save_sample_path, exist_ok=True)
     jth = 0
     steps = []
